@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Palette+Mosaic&display=swap');
+
+@font-face {
+  font-family: 'Blue Waffle';
+  src: url('../src/assets/fonts/BlueWaffle.woff2') format('woff2'),
+      url('../src/assets/fonts/BlueWaffle.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 
 .shirt-configurator{
   max-width: 500px;

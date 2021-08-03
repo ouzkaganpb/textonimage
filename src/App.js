@@ -1,10 +1,12 @@
 import './App.css';
-import Canvas from './components/Canvas';
-import ImageInstance from './components/ImageInstance'
 import {useState, useEffect, createRef} from 'react'
-import AImage from './assets/a.jpg'
+import { texts } from './mock'
+import CanvasWithText from './components/CanvasWithText/CanvasWithText';
 function App() {
+  
   const [textOnImage, setTextOnImage] = useState('')
+  const [textsOnImage, setTextsOnImage] = useState([...texts])
+
   const [imageDimensions,setImageDimensions] = useState({x:0,y:0})
   const canvasRef = createRef(null);
   
@@ -12,17 +14,29 @@ function App() {
     setImageDimensions({x,y})
     console.log(canvasRef.current)
   }
+  const handleChange = (text) => {
+    let newtexts = [...texts]
+    newtexts[0].text=text 
+    setTextsOnImage([...newtexts])
+  }
+  const handleChange2 = (text) => {
+    let newtexts = [...texts]
+    newtexts[1].text=text
+    setTextsOnImage([...newtexts])
+  }
 
   return (
     <div className="App">
       <header className="App-header">
         <form>
-          <input type="text" onChange={(e)=>setTextOnImage(e.target.value)}/>
+          <div><input type="text" onChange={(e)=>handleChange(e.target.value)}/></div>
+          <div><input type="text" onChange={(e)=>handleChange2(e.target.value)}/></div>
+
+
         </form>
         <div className="shirt-configurator">
-          <ImageInstance onImageResize={onImageResize} />
-          
-          <Canvas text={textOnImage} ref={canvasRef} width={imageDimensions.x} height={imageDimensions.y} textoffsettop={34}/>
+          <CanvasWithText texts={textsOnImage} text={textOnImage}/>
+
         </div>
       </header>
    

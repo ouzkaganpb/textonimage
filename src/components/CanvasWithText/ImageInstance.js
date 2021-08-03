@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-export default function ImageInstance({ onImageResize }) {
+export default function ImageInstance({ imageSource, onImageResize }) {
   const image = useRef();
 
   const [dimensions, setDimensions] = React.useState({
@@ -27,7 +27,7 @@ export default function ImageInstance({ onImageResize }) {
   return (
     <div>
       <img
-        src="https://www.ajax.nl/media/whol2f3d/75608_26861__20072020_1621.png"
+        src={imageSource}
         ref={image}
         alt="shirt"
         className="shirt-canvas_image"
