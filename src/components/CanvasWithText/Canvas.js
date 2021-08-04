@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 
 const Canvas = React.forwardRef(({texts, width, height, ...props}, canvasRef) => {
 
@@ -10,41 +10,51 @@ const Canvas = React.forwardRef(({texts, width, height, ...props}, canvasRef) =>
     context.fillStyle = "#00000000";
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
   }, []);
-  console.log(props)
-  const handleCanvasLoad = (e) =>{
-  }
-
+  
   useEffect(() => {
     const context = canvasRef.current.getContext("2d");
     context.clearRect(0, 0, width, height);
-    /* console.log("I worked") */
-    console.log(document.fonts)
 
-    
     texts.map(async (item) => {
-        /* console.log(props.width); */
-        const offsettop = (height * item.distanceFromTopPercentage) / 100;
-        /* console.log(props.height, props.textoffsettop, offsettop); */
         
         //when first page loads there are no fonts. we should wait for them
-        const isready = await document.fonts.ready
-        console.log(document.fonts.status === "loading")
+        await document.fonts.ready
+        
+        //text specs
         context.fillStyle = item.color;
         context.font = `${width * item.fontSizeRatio / 100}px ${item.fontFamily}`
-
         let textString = item.text
-        if(item.isUpperCase){textString = textString.toUpperCase() }
-
-
+        if(item.isUpperCase){ textString = textString.toUpperCase() }
+        if(item.isLowerCase){ textString = textString.toLowerCase() }
+        
+        /* Calculate text position */
+        let fromLeft = 0, fromTop = 0, offsettop = 0;
+        //get metrics about text from context
         let metrics = context.measureText(textString)
         let textWidth = metrics.width
-        let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+        let textHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+        //horizontal
+        switch (item.horizontalPosition) {
+          case 'center':
+            fromLeft =  (width/2) - (textWidth / 2)
+            break;
+          default:
+            fromLeft = item.distanceFromLeftPercentage
+            break;
+        }
+        //vertical
+        switch (item.vertocalPosition) {
+          case 'center':
+            fromTop =  (width/2) - (textWidth / 2)
+            break;
+          default:
+            offsettop = (height * item.distanceFromTopPercentage) / 100;
+            fromTop = offsettop+textHeight
+            break;
+        }
 
-        let fromLeft =  (width/2) - (textWidth / 2)
-        let fromTop = offsettop+fontHeight
-        /* console.log(fromTop) */
+        //add text on canvas
         context.fillText(textString , fromLeft, fromTop);
-        /* console.log("drawing the text done") */
     })
   }, [texts, width, height]);
 

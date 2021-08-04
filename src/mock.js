@@ -35,6 +35,7 @@ export const texts2 = [
   fontFamily: 'Rounded Mplus',
   color: '#FFFFFF',
   isUpperCase: true,
+  isLowerCase: false,
   position:null,
   horizontalPosition:'center',
   verticalPosition:null,
@@ -42,5 +43,6 @@ export const texts2 = [
   distanceFromLeftPercentage:50,
   maxLength: 8,
   
+
  },
 ]
