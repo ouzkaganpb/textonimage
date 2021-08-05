@@ -3,26 +3,26 @@ import React, { useEffect } from "react";
 const Canvas = React.forwardRef(
   ({ texts, width, height, ...props }, canvasRef) => {
     useEffect(() => {
-      CanvasRenderingContext2D.prototype.fillTextCircleStretch = function (
-        text,
-        x,
-        y,
-        radius,
-        startRotation
-      ) {
-        var numRadsPerLetter = (2 * Math.PI) / text.length;
-        this.save();
-        this.translate(x, y);
-        this.rotate(startRotation);
-        for (var i = 0; i < text.length; i++) {
-          this.save();
-          this.rotate(i * numRadsPerLetter);
+      //   CanvasRenderingContext2D.prototype.fillTextCircleStretch = function (
+      //     text,
+      //     x,
+      //     y,
+      //     radius,
+      //     startRotation
+      //   ) {
+      //     var numRadsPerLetter = (2 * Math.PI) / text.length;
+      //     this.save();
+      //     this.translate(x, y);
+      //     this.rotate(startRotation);
+      //     for (var i = 0; i < text.length; i++) {
+      //       this.save();
+      //       this.rotate(i * numRadsPerLetter);
 
-          this.fillText(text[i], 0, -radius);
-          this.restore();
-        }
-        this.restore();
-      };
+      //       this.fillText(text[i], 0, -radius);
+      //       this.restore();
+      //     }
+      //     this.restore();
+      //   };
 
       CanvasRenderingContext2D.prototype.fillTextCircle = function (
         text,
@@ -116,7 +116,7 @@ const Canvas = React.forwardRef(
 
     useEffect(() => {
       const context = canvasRef.current.getContext("2d");
-      context.clearRect(0, 0, width, height);
+      // context.clearRect(0, 0, width, height);
 
       texts.map(async (item, i) => {
         //when first page loads there are no fonts. we should wait for them
@@ -133,12 +133,12 @@ const Canvas = React.forwardRef(
           }`
         );
         let textString = item.text;
-        if (item.isUpperCase) {
-          textString = textString.toUpperCase();
-        }
-        if (item.isLowerCase) {
-          textString = textString.toLowerCase();
-        }
+        // if (item.isUpperCase) {
+        //   textString = textString.toUpperCase();
+        // }
+        // if (item.isLowerCase) {
+        //   textString = textString.toLowerCase();
+        // }
 
         /* Calculate text position */
         let fromLeft = 0,
@@ -149,84 +149,107 @@ const Canvas = React.forwardRef(
         let textWidth = metrics.width;
         let textHeight =
           metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
-        //horizontal position
-        switch (item.horizontalPosition) {
-          case "center":
-            fromLeft = width / 2 - textWidth / 2;
-            //Vertical images
-            if (item.style === "vertical") {
-              fromLeft = height / 2 - textWidth / 2;
-            }
-            break;
-          default:
-            fromLeft = (width * item.distanceFromLeftPercentage) / 100;
-            //Vertical images
-            if (item.style === "vertical") {
-              fromLeft = (height * item.distanceFromLeftPercentage) / 100;
-            }
-            break;
-        }
-        //vertical position
-        switch (item.verticalPosition) {
-          case "center":
-            fromTop = width / 2 - textWidth / 2;
 
-            break;
-          case null:
-          case "":
-            offsettop = (height * item.distanceFromTopPercentage) / 100;
-            fromTop = offsettop;
-            //Circle Text
-            if (item.style !== "circlestretch") {
-              fromTop = offsettop + textHeight;
-            }
-            //Vertical images
-            if (item.style === "vertical") {
-              offsettop = (width * item.distanceFromTopPercentage) / 100;
-              fromTop = offsettop;
-            }
-            break;
-          default:
-            console.log("not do anything");
-            break;
-        }
+        fromLeft = width / 2; // - textWidth / 2;
+        fromLeft = fromLeft + (width * item.shiftHorizontal) / 100;
+
+        fromTop = height / 2 + (height * item.shiftVertical) / 100;
+        context.resetTransform();
+        context.clearRect(0, 0, width, height);
+        context.translate(fromLeft, fromTop);
+        // context.fillRect(0, 0, 3, 3);
+        context.rotate((item.rotateDeg * Math.PI) / 180);
+        context.translate(-fromLeft, -fromTop);
+
+        //horizontal position
+        // switch (item.horizontalPosition) {
+        //   case "center":
+        //     fromLeft = width / 2 - textWidth / 2;
+        //     //Vertical images
+        //     if (item.style === "vertical") {
+        //       fromLeft = height / 2 - textWidth / 2;
+        //     }
+        //     break;
+        //   default:
+        //     fromLeft = (width * item.distanceFromLeftPercentage) / 100;
+        //     //Vertical images
+        //     if (item.style === "vertical") {
+        //       fromLeft = (height * item.distanceFromLeftPercentage) / 100;
+        //     }
+        //     break;
+        // }
+        // //vertical position
+        // switch (item.verticalPosition) {
+        //   case "center":
+        //     fromTop = width / 2 - textWidth / 2;
+
+        //     break;
+        //   case null:
+        //   case "":
+        //     offsettop = (height * item.distanceFromTopPercentage) / 100;
+        //     fromTop = offsettop;
+        //     //Circle Text
+        //     if (item.style !== "circlestretch") {
+        //       fromTop = offsettop + textHeight;
+        //     }
+        //     //Vertical images
+        //     if (item.style === "vertical") {
+        //       offsettop = (width * item.distanceFromTopPercentage) / 100;
+        //       fromTop = offsettop;
+        //     }
+        //     break;
+        //   default:
+        //     console.log("not do anything");
+        //     break;
+        // }
 
         //add text on canvas
-        console.log(textString, width, height, fromLeft, fromTop);
-        switch (item.style) {
-          case "horizontal":
-            console.log("its straight");
-            context.fillText(textString, fromLeft, fromTop);
-            break;
-          case "circlestretch":
-            context.fillTextCircleStretch(
-              textString,
-              fromLeft,
-              fromTop,
-              (width * item.radiusRaito) / 100,
-              Math.PI / 2
-            );
-            break;
-          case "circle":
-            console.log("its circle");
-            context.fillTextCircle(textString, 10, 10, 250, 0, true);
-            
-            break;
-          case "vertical":
-            context.save();
-            context.translate(0, height);
-            context.rotate(-Math.PI / 2);
-            context.textBaseline = "bottom";
-            context.textAlign = "left";
-            console.log("text filled");
+        // console.log(textString, width, height, fromLeft, fromTop);
+        // switch (item.style) {
+        //   case "horizontal":
+        //     console.log("its straight");
+        //     context.fillText(textString, fromLeft, fromTop);
+        //     break;
+        //   case "circlestretch":
+        //     context.fillTextCircleStretch(
+        //       textString,
+        //       fromLeft,
+        //       fromTop,
+        //       (width * item.radiusRaito) / 100,
+        //       Math.PI / 2
+        //     );
+        //     break;
+        //   case "circle":
+        //     console.log("its circle");
+        //     context.fillTextCircle(textString, 10, 10, 250, 0, true);
 
-            context.fillText(textString, fromLeft, fromTop);
-            context.restore();
-            break;
-          default:
-            console.log("hangi style?");
-            break;
-        }
+        //     break;
+        //   case "vertical":
+        //     context.save();
+        //     context.translate(0, height);
+        //     context.rotate(-Math.PI / 2);
+        //     context.textBaseline = "bottom";
+        //     context.textAlign = "left";
+        //     console.log("text filled");
+
+        //     context.fillText(textString, fromLeft, fromTop);
+        //     context.restore();
+        //     break;
+        //   default:
+        //     console.log("hangi style?");
+        //     break;
+        // }
+        // context.fillText(textString, fromLeft, fromTop);
+        if (item.fixedStart) fromLeft = fromLeft + textWidth / 2;
+
+        context.fillTextCircle(
+          textString,
+          fromLeft - item.diameter / 2 - textWidth / 4,
+          fromTop,
+          item.diameter,
+          0,
+          true
+        );
       });
     }, [texts, width, height, canvasRef]);
 

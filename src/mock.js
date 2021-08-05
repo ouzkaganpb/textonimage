@@ -30,19 +30,24 @@ export const texts2 = [
  {
   identifier:"sheetname",
   text:"BEST BUTTY",
-  fontSize: 45,
-  fontSizeRatio: 9,
+  fontSize: 95,
+  fontSizeRatio: 11,
   fontFamily: 'Rounded Mplus',
-  color: '#FFFFFF',
-  isUpperCase: true,
-  isLowerCase: false,
-  position:null,
-  horizontalPosition:'center',
-  verticalPosition:'',
-  distanceFromTopPercentage:73,
-  distanceFromLeftPercentage:50,
+  color: '#030202',
+  fixedStart: true,
+  shiftHorizontal: 20,
+  shiftVertical: 0,
+  //   isUpperCase: true,
+  rotateDeg: -45,
+  diameter: 850,
+//   isLowerCase: false,
+//   position:null,
+//   horizontalPosition:'center',
+//   verticalPosition:'',
+//   distanceFromTopPercentage:73,
+//   distanceFromLeftPercentage:50,
   maxLength: 8,
-  style:"horizontal"
+//   style:"horizontal"
 
  }
 ]
