@@ -62,7 +62,7 @@ export const texts3 = [
   distanceFromTopPercentage:50.5,
   distanceFromLeftPercentage:50,
   maxLength: 8,
-  style:"circlestretch",
+  style:"vertical",
   radiusRaito: 30
  }
 ]

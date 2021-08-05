@@ -25,7 +25,6 @@ function CanvasWithText({text,texts,imageSource }) {
         ref={canvasRef}
         width={imageDimensions.x}
         height={imageDimensions.y}
-        textoffsettop={34}
       />
     </>
   );

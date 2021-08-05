@@ -13,23 +13,23 @@ import imagesource5 from './assets/Happy Unicorn_75.png'
 function App() {
   
   const [textOnImage, setTextOnImage] = useState('')
-  const [textsOnImage, setTextsOnImage] = useState([...texts6])
+  const [textsOnImage, setTextsOnImage] = useState([...texts5])
 
   const [imageDimensions,setImageDimensions] = useState({x:0,y:0})
   const canvasRef = createRef(null);
   
   const handleChange = (text) => {
-    let newtexts = [...texts6]
+    let newtexts = [...texts5]
     newtexts[0].text=text 
     setTextsOnImage([...newtexts])
   }
   const handleChange2 = (text) => {
-    let newtexts = [...texts6]
+    let newtexts = [...texts5]
     newtexts[1].text=text
     setTextsOnImage([...newtexts])
   }
   const handleChange3 = (text) => {
-    let newtexts = [...texts6]
+    let newtexts = [...texts5]
     newtexts[0].text=text
     setTextsOnImage([...newtexts])
   }
@@ -65,7 +65,7 @@ function App() {
         </div> */}
         <div className="shirt-configurator">
           
-          <CanvasWithText texts={textsOnImage} text={textOnImage} imageSource={imagesource5}/>
+          <CanvasWithText texts={textsOnImage} text={textOnImage} imageSource={imagesource4}/>
 
         </div>
       </header>

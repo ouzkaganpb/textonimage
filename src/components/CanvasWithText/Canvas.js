@@ -14,7 +14,6 @@ const Canvas = React.forwardRef(
         this.save();
         this.translate(x, y);
         this.rotate(startRotation);
-
         for (var i = 0; i < text.length; i++) {
           this.save();
           this.rotate(i * numRadsPerLetter);
@@ -25,7 +24,7 @@ const Canvas = React.forwardRef(
         this.restore();
       };
 
-      CanvasRenderingContext2D.prototype.fillTextcircle = function (
+      CanvasRenderingContext2D.prototype.fillTextCircle = function (
         text,
         x,
         y,
@@ -207,6 +206,11 @@ const Canvas = React.forwardRef(
               (width * item.radiusRaito) / 100,
               Math.PI / 2
             );
+            break;
+          case "circle":
+            console.log("its circle");
+            context.fillTextCircle(textString, 10, 10, 250, 0, true);
+            
             break;
           case "vertical":
             context.save();
