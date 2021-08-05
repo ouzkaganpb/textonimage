@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 export default function ImageInstance({ imageSource, onImageResize }) {
   const image = useRef();
@@ -16,7 +16,7 @@ export default function ImageInstance({ imageSource, onImageResize }) {
   }
 
   //to get image size if window resize
-  React.useEffect(() => {
+  useEffect(() => {
     function handleResize() {
       setDimensions({
         height: window.innerHeight,

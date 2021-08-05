@@ -38,11 +38,117 @@ export const texts2 = [
   isLowerCase: false,
   position:null,
   horizontalPosition:'center',
-  verticalPosition:null,
+  verticalPosition:'',
   distanceFromTopPercentage:73,
   distanceFromLeftPercentage:50,
   maxLength: 8,
-  
+  style:"horizontal"
 
+ }
+]
+export const texts3 = [
+ {
+  identifier:"sheetname",
+  text:"Lots of text here about • 纳伯 纳伯 纳伯 • مرحبا ما الأخبار • это текст •",
+  fontSize: 45,
+  fontSizeRatio: 2,
+  fontFamily: 'Myriad Roman',
+  color: '#000',
+  isUpperCase: true,
+  isLowerCase: false,
+  position:null,
+  horizontalPosition:'',
+  verticalPosition:'',
+  distanceFromTopPercentage:50.5,
+  distanceFromLeftPercentage:50,
+  maxLength: 8,
+  style:"circlestretch",
+  radiusRaito: 30
+ }
+]
+export const texts4 = [
+ {
+  identifier:"sheetname",
+  text:"Paw to my hart",
+  fontSize: 45,
+  fontSizeRatio: 17,
+  fontFamily: 'Freescript',
+  color: '#000',
+  isUpperCase: false,
+  isLowerCase: false,
+  position:null,
+  horizontalPosition:'center',
+  verticalPosition:'',
+  distanceFromTopPercentage:72,
+  distanceFromLeftPercentage:20,
+  maxLength: 8,
+  style:"vertical",
+  radiusRaito: null,
+  fontWeight: 'Bold'
+ }
+]
+export const texts5 = [
+ {
+  identifier:"sheetname",
+  text:"Butterfly",
+  fontSize: 45,
+  fontSizeRatio: 23,
+  fontFamily: 'Acto Black',
+  color: '#fff',
+  isUpperCase: true,
+  isLowerCase: false,
+  position:null,
+  horizontalPosition:'',
+  verticalPosition:'',
+  distanceFromTopPercentage:100,
+  distanceFromLeftPercentage:3,
+  maxLength: 8,
+  style:"vertical",
+  radiusRaito: null,
+  fontWeight: 'Bold',
+  maxLengthAllowed: true, 
  },
+ {
+  identifier:"sheetname",
+  text:"Beautiful like a",
+  fontSize: 45,
+  fontSizeRatio: 13,
+  fontFamily: 'Golden Plains',
+  color: '#000',
+  isUpperCase: false,
+  isLowerCase: false,
+  position:null,
+  horizontalPosition:'',
+  verticalPosition:'',
+  distanceFromTopPercentage:80,
+  distanceFromLeftPercentage:4,
+  maxLength: 8,
+  style:"vertical",
+  radiusRaito: null,
+  fontWeight: 'Normal'
+ },
+
+]
+export const texts6 = [
+ {
+  identifier:"sheetname",
+  text:"Happy Unicorn",
+  fontSize: 45,
+  fontSizeRatio: 23,
+  fontFamily: 'Acto Black',
+  color: '#fff',
+  isUpperCase: true,
+  isLowerCase: false,
+  position:null,
+  horizontalPosition:'',
+  verticalPosition:'',
+  distanceFromTopPercentage:100,
+  distanceFromLeftPercentage:3,
+  maxLength: 8,
+  style:"curved",
+  radiusRaito: null,
+  fontWeight: 'Bold',
+  maxLengthAllowed: true, //if true we should be able to make text smaller
+ },
+
 ]

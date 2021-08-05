@@ -22,7 +22,6 @@ function CanvasWithText({text,texts,imageSource }) {
 
       <Canvas
         texts={texts}
-        text={text}
         ref={canvasRef}
         width={imageDimensions.x}
         height={imageDimensions.y}
