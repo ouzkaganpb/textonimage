@@ -213,15 +213,17 @@ const Canvas = React.forwardRef(
             
             break;
           case "vertical":
-            context.save();
-            context.translate(0, height);
-            context.rotate(-Math.PI / 2);
-            context.textBaseline = "bottom";
-            context.textAlign = "left";
-            console.log("text filled");
+            if(width!==0){
+              context.save();
+              context.translate(0, height);
+              context.rotate(-Math.PI / 2);
+              context.textBaseline = "bottom";
+              context.textAlign = "left";
+              console.log("text filled");
 
-            context.fillText(textString, fromLeft, fromTop);
-            context.restore();
+              context.fillText(textString, fromLeft, fromTop);
+              context.restore();
+            }
             break;
           default:
             console.log("hangi style?");
