@@ -62,3 +62,7 @@
 canvas{ 
   border: 1px solid black; 
 }
+
+input[type=range] {
+  width: 100%; /* Specific width is required for Firefox. */
+}

@@ -36,9 +36,10 @@ export const texts2 = [
   shiftHorizontal: 0,
   fixedStart: true,
   shiftVertical: 0,
-  rotateDeg: -90,
-  curvature: 40,
+  rotateDeg: 0,
+  curvature: 0,
   maxLength: 8,
+  letterSpacing: 10
  },
  {
   text:"Whild night",
@@ -52,6 +53,8 @@ export const texts2 = [
   rotateDeg: -90,
   curvature: 20,
   maxLength: 8,
+  letterSpacing: 10
+
  }
 ]
 export const texts3 = [

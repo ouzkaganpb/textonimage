@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
+  const [renderCount, setRenderCount] = useState(0)
+
   useEffect(() => {
     CanvasRenderingContext2D.prototype.fillTextCircle = function (
       text,
@@ -9,7 +11,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
       diameter,
       startAngle,
       inwardFacing,
-      kerning = 0,
+      kerning=0,
       textHeight = 10,
       align = "center",
       textInside = true
@@ -69,6 +71,9 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
       // Now for the fun bit: draw, rotate, and repeat
       for (let j = 0; j < text.length; j++) {
         var charWid2 = this.measureText(text[j]).width; // half letter
+        if(align === "right"){
+          this.translate(kerning, 0)
+        }
         // rotate half letter
         this.rotate((charWid2 / 2 / (diameter / 2 - textHeight)) * clockwise);
         // draw the character at "top" or "bottom"
@@ -78,13 +83,13 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
           0,
           (inwardFacing ? 1 : -1) * (0 - diameter / 2 + textHeight / 2)
         );
-
+          console.log((inwardFacing ? 1 : -1) * (0 - diameter / 2 + textHeight / 2))
         this.rotate(
           ((charWid / 2 + kerning) / (diameter / 2 - textHeight)) * clockwise
         ); // rotate half letter
+        this.restore()
       }
     };
-    console.log("stop working");
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     //Our first draw
@@ -106,18 +111,12 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
       context.font = `${item.fontWeight || ""} ${
         (width * item.fontSizeRatio) / 100
       }px ${item.fontFamily}`;
-      console.log(
+      /* console.log(
         `${item.fontWeight || ""} ${(width * item.fontSizeRatio) / 100}px ${
           item.fontFamily
         }`
-      );
+      ); */
       let textString = item.text;
-      // if (item.isUpperCase) {
-      //   textString = textString.toUpperCase();
-      // }
-      // if (item.isLowerCase) {
-      //   textString = textString.toLowerCase();
-      // }
 
       /* Calculate text position */
       let fromLeft = 0,
@@ -125,8 +124,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
       //get metrics about text from context
       let metrics = context.measureText(textString);
       let textWidth = metrics.width;
-      // let textHeight =
-      //   metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+      let textHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
 
       fromLeft = width / 2 + (width * item.shiftHorizontal) / 100;
 
@@ -134,29 +132,42 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
       context.resetTransform();
       context.translate(fromLeft, fromTop);
       // context.fillRect(0, 0, 3, 3);
+
       const rotationAngle =
         item.curvature >= 0 ? item.rotateDeg : item.rotateDeg + 180;
+      console.log('| curvature: ',item.curvature, '| rotationAngle: ',rotationAngle, '| rotateDeg: ', item.rotateDeg)
       context.rotate((rotationAngle * Math.PI) / 180);
       context.translate(-fromLeft, -fromTop);
 
-      if (Math.abs(item.curvature) < 5) {
+      if (false) {
         if (item.fixedStart) fromLeft = fromLeft + textWidth / 2;
         context.fillText(textString, fromLeft, fromTop);
       } else {
-        const resDiameter = (width / Math.abs(item.curvature)) * 100;
+        const resDiameter = (width / (Math.abs(item.curvature) || 1)) * 100;
         const resInward = item.curvature >= 0;
+        //first render places text in the wrong place
+        if(width !== 0 && renderCount !== 0){
+          
+          context.fillTextCircle(
+            textString,
+            fromLeft - resDiameter / 2,
+            fromTop,
+            resDiameter,
+            0,
+            resInward,
+            item.letterSpacing,
+            textHeight,
+            item.fixedStart ? "right" : "center",
+            
+          );
+        }
+        if(renderCount === 0){
+          setRenderCount(1)
+        }
 
-        context.fillTextCircle(
-          textString,
-          fromLeft - resDiameter / 2,
-          fromTop,
-          resDiameter,
-          0,
-          resInward
-        );
       }
     });
-  }, [texts, width, height, canvasRef]);
+  }, [texts, width, height, canvasRef, renderCount]);
 
   return (
     <>
