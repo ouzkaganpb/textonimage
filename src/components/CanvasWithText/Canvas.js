@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const Canvas = React.forwardRef(
   ({ texts, width, height, ...props }, canvasRef) => {
+    const [firstTime,setFirstTime] = useState(true)
+
+
     useEffect(() => {
       CanvasRenderingContext2D.prototype.fillTextCircleStretch = function (
         text,
@@ -127,11 +130,11 @@ const Canvas = React.forwardRef(
         context.font = `${item.fontWeight || ""} ${
           (width * item.fontSizeRatio) / 100
         }px ${item.fontFamily}`;
-        console.log(
+        /* console.log(
           `${item.fontWeight || ""} ${(width * item.fontSizeRatio) / 100}px ${
             item.fontFamily
           }`
-        );
+        ); */
         let textString = item.text;
         if (item.isUpperCase) {
           textString = textString.toUpperCase();
@@ -192,10 +195,10 @@ const Canvas = React.forwardRef(
         }
 
         //add text on canvas
-        console.log(textString, width, height, fromLeft, fromTop);
+        // console.log(textString, width, height, fromLeft, fromTop);
         switch (item.style) {
           case "horizontal":
-            console.log("its straight");
+            // console.log("its straight");
             context.fillText(textString, fromLeft, fromTop);
             break;
           case "circlestretch":
@@ -214,23 +217,27 @@ const Canvas = React.forwardRef(
             break;
           case "vertical":
             if(width!==0){
+              if(firstTime===true){
+                setFirstTime(false)
+                break
+              }
               context.save();
               context.translate(0, height);
               context.rotate(-Math.PI / 2);
               context.textBaseline = "bottom";
               context.textAlign = "left";
-              console.log("text filled");
-
               context.fillText(textString, fromLeft, fromTop);
               context.restore();
+              
             }
+            
             break;
           default:
             console.log("hangi style?");
             break;
         }
       });
-    }, [texts, width, height, canvasRef]);
+    }, [texts, width, height, canvasRef, firstTime]);
 
     return (
       <>
