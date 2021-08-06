@@ -28,27 +28,30 @@ export const texts = [
 ]
 export const texts2 = [
  {
-  identifier:"sheetname",
   text:"BEST BUTTY",
-  fontSize: 95,
-  fontSizeRatio: 11,
+  fontSizeRatio: 22,
   fontFamily: 'Rounded Mplus',
   color: '#030202',
+  fontWeight: '700',
+  shiftHorizontal: 0,
   fixedStart: true,
-  shiftHorizontal: 20,
   shiftVertical: 0,
-  //   isUpperCase: true,
-  rotateDeg: -45,
-  diameter: 850,
-//   isLowerCase: false,
-//   position:null,
-//   horizontalPosition:'center',
-//   verticalPosition:'',
-//   distanceFromTopPercentage:73,
-//   distanceFromLeftPercentage:50,
+  rotateDeg: -90,
+  curvature: 40,
   maxLength: 8,
-//   style:"horizontal"
-
+ },
+ {
+  text:"Whild night",
+  fontSizeRatio: 12,
+  fontFamily: 'Freescript',
+  color: '#E3B000',
+  fontWeight: '700',
+  shiftHorizontal: 40,
+  fixedStart: true,
+  shiftVertical: 0,
+  rotateDeg: -90,
+  curvature: 20,
+  maxLength: 8,
  }
 ]
 export const texts3 = [
