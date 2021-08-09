@@ -22,6 +22,16 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face{
+  font-family: "Ace Sans";
+  src: url('../src/assets/fonts/AceSans-Demo.woff') format('woff'), url('../src/assets/fonts/AceSans-Demo.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 @font-face {
   font-family: 'Freescript';
   src: url('../src/assets/fonts/Freescript.TTF') format('truetype');
@@ -52,7 +62,7 @@
   position:relative;
 }
 .shirt-configurator img{
-      position: absolute;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;

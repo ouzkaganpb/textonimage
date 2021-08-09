@@ -2,8 +2,146 @@ import './App.css';
 import {useState, useEffect, createRef} from 'react'
 import { texts2 } from './mock'
 import CanvasWithText from './components/CanvasWithText/CanvasWithText';
-import imagesource from './assets/Happy Unicorn_75.png' 
+import imagesource from './assets/Best Butty_75.png' 
 // import imagesource from './assets/Droompauw_75.png' 
+import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
+
+
+let renderCount = 0;
+
+function Test() {
+  const { register, control, handleSubmit, reset, watch } = useForm({
+    defaultValues: {
+      test: [
+        {
+
+          text:  "BEST BUTTY" ,
+          fontSizeRatio:  22 ,
+          fontFamily:  "Rounded Mplus" ,
+          color:  "#030202" ,
+          fontWeight:  "700" ,
+          shiftHorizontal:  0 ,
+          fixedStart:  true ,
+          shiftVertical:  0 ,
+          rotateDeg:  0 ,
+          curvature:  0 ,
+          maxLength:  8 ,
+          letterSpacing:  10 ,
+       }
+      ]
+    }
+  });
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
+    {
+      control,
+      name: "test"
+    }
+  );
+
+  const onSubmit = (data) => console.log("data", data);
+
+  // if you want to control your fields with watch
+  // const watchResult = watch("test");
+  // console.log(watchResult);
+
+  // The following is useWatch example
+  // console.log(useWatch({ name: "test", control }));
+
+  renderCount++;
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h1>Field Array </h1>
+      <p>The following demo allow you to delete, append, prepend items</p>
+      <span className="counter">Render Count: {renderCount}</span>
+      <ul>
+        {fields.map((item, index) => {
+          return (
+            <li key={item.id}>
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.text`)}
+              />
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.fontFamily`)}
+              />
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.color`)}
+              />
+
+
+              <Controller
+                render={({ field }) => <input {...field} />}
+                name={`test.${index}.lastName`}
+                control={control}
+                defaultValue={item.lastName} // make sure to set up defaultValue
+              />
+              <button type="button" onClick={() => remove(index)}>
+                Delete
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <section>
+        <button
+          type="button"
+          onClick={() => {
+            append(
+              {
+
+                text:  "BEST BUTTY" ,
+                fontSizeRatio:  22 ,
+                fontFamily:  "Rounded Mplus" ,
+                color:  "#030202" ,
+                fontWeight:  "700" ,
+                shiftHorizontal:  0 ,
+                fixedStart:  true ,
+                shiftVertical:  0 ,
+                rotateDeg:  0 ,
+                curvature:  0 ,
+                maxLength:  8 ,
+                letterSpacing:  10 ,
+             }
+            );
+          }}
+        >
+          append
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            prepend({
+              firstName: "prependFirstName",
+              lastName: "prependLastName"
+            })
+          }
+        >
+          prepend
+        </button>
+        
+        <button type="button" onClick={() => swap(1, 2)}>
+          swap
+        </button>
+
+        <button
+          type="button"
+          onClick={() =>
+            reset({
+              test: [{ firstName: "Bill", lastName: "Luo" }]
+            })
+          }
+        >
+          reset
+        </button>
+      </section>
+
+      <input type="submit" />
+    </form>
+  );
+}
 
 
 function App() {
@@ -62,6 +200,7 @@ function App() {
         <div className="row">
         
           <div className="column">
+            {/* <Test /> */}
             <form>
               <h4>First Text</h4>
               <div>First text: <input type="text" name="text" value={textsOnImage.text} onChange={(e)=>handleChange(e)}/></div>
@@ -76,7 +215,6 @@ function App() {
               <div>Curvature<input type="range" min="-360" max="360" value={textsOnImage.curvature} name="curvature" onChange={(e)=>handleChange(e)}/></div>
               <div>Max Length<input type="number" value={textsOnImage.maxLength} name="maxLength" onChange={(e)=>handleChange(e)}/></div>
               <div>Letter Spacing<input type="number" value={textsOnImage.letterSpacing} name="letterSpacing" onChange={(e)=>handleChange(e)}/></div>
-
             </form>
             <form>
               <h4>Second Text</h4>
@@ -106,7 +244,7 @@ function App() {
             Object.keys(textsOnImage).map(item=>{
               return (<>
                 <div key={item}><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
-                  "{item}": {` ${typeof textsOnImage[item] == 'string' ? '"'+textsOnImage[item]+'"' : textsOnImage[item]} `}
+                {item}: {` ${typeof textsOnImage[item] == 'string' ? '"'+textsOnImage[item]+'"' : textsOnImage[item]} `},
                 </div>
               </>)
             })
