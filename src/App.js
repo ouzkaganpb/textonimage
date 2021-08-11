@@ -233,7 +233,7 @@ function App() {
           <div className="column">
         <div className="shirt-configurator">
           
-          <CanvasWithText texts={[{...textsOnImage},{...textsOnImage2}]} imageSource={imagesource}/>
+          <CanvasWithText texts={[{...textsOnImage}/* ,{...textsOnImage2} */]} imageSource={imagesource}/>
 
         </div>
         </div>

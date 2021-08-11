@@ -74,9 +74,6 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
             // Now for the fun bit: draw, rotate, and repeat
             for (let j = 0; j < text.length; j++) {
                 let charWid2 = this.measureText(text[j]).width; // half letter
-                if (align === 'right') {
-                    this.translate((kerning * charWid2) / 100, 0);
-                }
                 // rotate half letter
                 this.rotate(
                     (charWid2 / 2 / (diameter / 2 - textHeight)) * clockwise
@@ -90,7 +87,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
                         (0 - diameter / 2 + textHeight / 2)
                 );
                 this.rotate(
-                    ((charWid / 2 + kerning) / (diameter / 2 - textHeight)) *
+                    ((charWid2 / 2 + kerning) / (diameter / 2 - textHeight)) *
                         clockwise
                 ); // rotate half letter
                 this.restore();
@@ -184,7 +181,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
                             position: 'absolute',
                             visibility: 'hidden'
                         }}
-                        key={`${t}-${i}`}
+                        key={`${t}-${Math.abs(i)}`}
                     >
                         .
                     </div>

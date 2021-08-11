@@ -28,20 +28,20 @@ export const texts = [
 ]
 export const texts2 = [
  {
-  text:"BEST BUTTY",
-  fontSizeRatio: 22,
-  fontFamily: 'Rounded Mplus',
-  color: '#030202',
-  fontWeight: '700',
-  shiftHorizontal: 0,
-  fixedStart: true,
-  shiftVertical: 0,
-  rotateDeg: 0,
-  curvature: 0,
-  maxLength: 8,
-  letterSpacing: 10
- },
- {
+  text:  "ABCDEFGHGJ" ,
+  fontSizeRatio:  10 ,
+  fontFamily:  "Ace Sans" ,
+  color:  "red" ,
+  fontWeight:  "700" ,
+  shiftHorizontal:  0 ,
+  fixedStart:  false ,
+  shiftVertical:  23 ,
+  rotateDeg:  0 ,
+  curvature:  0 ,
+  maxLength:  8 ,
+  letterSpacing:  1 ,
+}
+/*  {
   text:"Whild night",
   fontSizeRatio: 12,
   fontFamily: 'Freescript',
@@ -55,7 +55,7 @@ export const texts2 = [
   maxLength: 8,
   letterSpacing: 10
 
- }
+ } */
 ]
 export const texts3 = [
  {
