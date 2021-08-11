@@ -59,7 +59,12 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
             // rotate 50% of total angle for center alignment
             if (align === 'center') {
                 for (let j = 0; j < text.length; j++) {
-                    charWid = this.measureText(text[j]).width;
+                    //fix issue with letter 'i' width is so small somehow. just calculate 1's width
+                    charWid =
+                        this.measureText(text[j]).width <
+                        this.measureText('1').width
+                            ? this.measureText('1').width
+                            : this.measureText(text[j]).width;
                     startAngle +=
                         ((charWid + (j === text.length - 1 ? 0 : kerning)) /
                             (diameter / 2 - textHeight) /
@@ -73,7 +78,12 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
 
             // Now for the fun bit: draw, rotate, and repeat
             for (let j = 0; j < text.length; j++) {
-                let charWid2 = this.measureText(text[j]).width; // half letter
+                //fix issue with letter 'i' width is so small somehow. just calculate 1's width
+                let charWid2 =
+                    this.measureText(text[j]).width <
+                    this.measureText('1').width
+                        ? this.measureText('1').width
+                        : this.measureText(text[j]).width; // half letter
                 // rotate half letter
                 this.rotate(
                     (charWid2 / 2 / (diameter / 2 - textHeight)) * clockwise
@@ -142,9 +152,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
             context.rotate((rotationAngle * Math.PI) / 180);
             context.translate(-fromLeft, -fromTop);
 
-            
-            const resDiameter =
-                (width / (Math.abs(item.curvature) || 1)) * 100;
+            const resDiameter = (width / (Math.abs(item.curvature) || 1)) * 100;
             const resInward = item.curvature >= 0;
             //first render places text in the wrong place
             if (width !== 0 && renderCount !== 0) {
