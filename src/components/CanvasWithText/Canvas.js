@@ -142,30 +142,26 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
             context.rotate((rotationAngle * Math.PI) / 180);
             context.translate(-fromLeft, -fromTop);
 
-            if (false) {
-                if (item.fixedStart) fromLeft += textWidth / 2;
-                context.fillText(textString, fromLeft, fromTop);
-            } else {
-                const resDiameter =
-                    (width / (Math.abs(item.curvature) || 1)) * 100;
-                const resInward = item.curvature >= 0;
-                //first render places text in the wrong place
-                if (width !== 0 && renderCount !== 0) {
-                    context.fillTextCircle(
-                        textString,
-                        fromLeft - resDiameter / 2,
-                        fromTop,
-                        resDiameter,
-                        0,
-                        resInward,
-                        item.letterSpacing,
-                        textHeight,
-                        item.fixedStart ? 'right' : 'center'
-                    );
-                }
-                if (renderCount === 0) {
-                    setRenderCount(1);
-                }
+            
+            const resDiameter =
+                (width / (Math.abs(item.curvature) || 1)) * 100;
+            const resInward = item.curvature >= 0;
+            //first render places text in the wrong place
+            if (width !== 0 && renderCount !== 0) {
+                context.fillTextCircle(
+                    textString,
+                    fromLeft - resDiameter / 2,
+                    fromTop,
+                    resDiameter,
+                    0,
+                    resInward,
+                    item.letterSpacing === 0 ? 1 : item.letterSpacing,
+                    textHeight,
+                    item.fixedStart ? 'right' : 'center'
+                );
+            }
+            if (renderCount === 0) {
+                setRenderCount(1);
             }
         });
     }, [texts, width, height, canvasRef, renderCount]);
