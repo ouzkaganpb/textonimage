@@ -239,17 +239,17 @@ function App() {
         </div>
           <div className="column" style={{maxWidth: '32%'}}>
             <pre>
-            <p>{"{"}</p>
+            <span>{"{"}</span>
             {
-            Object.keys(textsOnImage).map(item=>{
+            Object.keys(textsOnImage).map((item,index)=>{
               return (<>
                 <div key={item}><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span>
-                {item}: {` ${typeof textsOnImage[item] == 'string' ? '"'+textsOnImage[item]+'"' : textsOnImage[item]} `},
+                "{item}": {` ${typeof textsOnImage[item] == 'string' ? '"'+textsOnImage[item]+'"' : textsOnImage[item]} ${index !== Object.keys(textsOnImage).length - 1 ? ',' : ''}` }
                 </div>
               </>)
             })
           }
-          <p>{"}"}</p>
+          <span>{"}"}</span>
             </pre>
           </div>
         </div>

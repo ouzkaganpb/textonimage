@@ -163,7 +163,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
                     resDiameter,
                     0,
                     resInward,
-                    item.letterSpacing === 0 ? 1 : item.letterSpacing,
+                    item.letterSpacing,
                     textHeight,
                     item.fixedStart ? 'right' : 'center'
                 );
