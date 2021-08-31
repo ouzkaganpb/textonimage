@@ -1,33 +1,38 @@
-import React, {useState, useEffect, createRef} from "react";
-import Canvas from './Canvas';
-import ImageInstance from './ImageInstance'
+import React, { createRef, useState } from 'react';
+import Canvas from './Components/Canvas.js';
+import ImageInstance from './Components/ImageInstance.js';
+import * as S from './CanvasWithTextStyled.js';
 
-function CanvasWithText({text,texts,imageSource }) {
- const [imageDimensions,setImageDimensions] = useState({x:0,y:0})
- const canvasRef = createRef(null);
+const CanvasWithText = ({ texts, imageSource }) => {
+    const [imageDimensions, setImageDimensions] = useState({ x: 0, y: 0 });
+    const canvasRef = createRef(null);
+  console.log(":asdas")
+    function onImageResize(x, y) {
+        setImageDimensions({ x, y });
+    }
 
- function onImageResize(x,y){ 
-  setImageDimensions({x,y})
-  /* console.log(canvasRef.current) */
-}
+    return (
+        <>
+            <S.ShirtConfigurator>
+                <ImageInstance
+                    onImageResize={onImageResize}
+                    imageSource={imageSource}
+                    style={{
+                        width: '100%',
+                        maxHeight: '360px',
+                        objectFit: 'contain'
+                    }}
+                />
 
-  return (
-    <>
-      <ImageInstance
-        onImageResize={onImageResize}
-        imageSource={
-          imageSource
-        }
-      />
+                <Canvas
+                    texts={texts}
+                    ref={canvasRef}
+                    width={imageDimensions.x}
+                    height={imageDimensions.y}
+                />
+            </S.ShirtConfigurator>
+        </>
+    );
+};
 
-      <Canvas
-        texts={texts}
-        ref={canvasRef}
-        width={imageDimensions.x}
-        height={imageDimensions.y}
-      />
-    </>
-  );
-}
-
-export default CanvasWithText;
+export default CanvasWithText

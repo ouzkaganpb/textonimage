@@ -115,7 +115,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
         context.resetTransform();
         context.clearRect(0, 0, width, height);
 
-        texts.map(async (item, i) => {
+        texts.map(async item => {
             //when first page loads there are no fonts. we should wait for them
             await document.fonts.ready;
 
@@ -136,10 +136,9 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
             let fromTop = 0;
             //get metrics about text from context
             let metrics = context.measureText(textString);
-            let textWidth = metrics.width;
-            let textHeight =
-                metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
-
+            //let textWidth = metrics.width;
+            let textHeight = context.measureText('M').width
+            console.log(textHeight)
             fromLeft = width / 2 + (width * item.shiftHorizontal) / 100;
 
             fromTop = height / 2 + (height * item.shiftVertical) / 100;
