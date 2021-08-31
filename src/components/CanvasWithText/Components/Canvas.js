@@ -138,7 +138,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
             let metrics = context.measureText(textString);
             //let textWidth = metrics.width;
             let textHeight = context.measureText('M').width
-            console.log(textHeight)
+
             fromLeft = width / 2 + (width * item.shiftHorizontal) / 100;
 
             fromTop = height / 2 + (height * item.shiftVertical) / 100;
