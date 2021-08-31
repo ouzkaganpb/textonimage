@@ -153,6 +153,11 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
 
             const resDiameter = (width / (Math.abs(item.curvature) || 1)) * 100;
             const resInward = item.curvature >= 0;
+
+            let itemFixed;
+            if(Number(item.fixedStart) === 0) itemFixed = 'center'
+            if(Number(item.fixedStart) === 1) itemFixed = 'right'
+            if(Number(item.fixedStart) === 2) itemFixed = 'left'
             //first render places text in the wrong place
             if (width !== 0 && renderCount !== 0) {
                 context.fillTextCircle(
@@ -164,7 +169,7 @@ const Canvas = React.forwardRef(({ texts, width, height }, canvasRef) => {
                     resInward,
                     item.letterSpacing,
                     textHeight,
-                    item.fixedStart ? 'right' : 'center'
+                    itemFixed
                 );
             }
             if (renderCount === 0) {

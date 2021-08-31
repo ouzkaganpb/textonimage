@@ -200,7 +200,19 @@ function App() {
               <div>Color<input type="text" value={textsOnImage.color} name="color" onChange={(e)=>handleChange(e)}/></div>
               <div>Font Size %<input type="number" value={textsOnImage.fontSizeRatio} name="fontSizeRatio" onChange={(e)=>handleChange(e)}/></div>
               <div>Font Weight %<input type="number" value={textsOnImage.fontWeight} name="fontWeight" onChange={(e)=>handleChange(e)}/></div>
-              <div>fixedStart<input type="checkbox" checked={textsOnImage.fixedStart} name="fixedStart" onChange={(e)=>handleChange(e)}/></div>
+              <label for="fixedStart">fixed at?</label>
+
+              <select name="fixedStart" id="fixedStart" onChange={(e)=>handleChange(e)} >
+                  <option value="">--Please choose an option--</option>
+                  <option value="0">center</option>
+                  <option value="1">right</option>
+                  <option value="2">left</option>
+              </select>
+                <datalist id="data">
+                  <option value="center" />
+                  <option value="right" />
+                  <option value="left" />
+                </datalist>
               <div>Rotation<input type="range" min="-360" max="360" value={textsOnImage.rotateDeg} name="rotateDeg" onChange={(e)=>handleChange(e)}/></div>
               <div>Curvature<input type="range" min="-360" max="360" value={textsOnImage.curvature} name="curvature" onChange={(e)=>handleChange(e)}/></div>
               <div>Max Length<input type="number" value={textsOnImage.maxLength} name="maxLength" onChange={(e)=>handleChange(e)}/></div>

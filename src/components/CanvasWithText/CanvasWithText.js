@@ -6,7 +6,6 @@ import * as S from './CanvasWithTextStyled.js';
 const CanvasWithText = ({ texts, imageSource }) => {
     const [imageDimensions, setImageDimensions] = useState({ x: 0, y: 0 });
     const canvasRef = createRef(null);
-  console.log(":asdas")
     function onImageResize(x, y) {
         setImageDimensions({ x, y });
     }
