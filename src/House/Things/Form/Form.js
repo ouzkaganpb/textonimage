@@ -1,27 +1,44 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
-function Form() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+import React from "react";
+import { useForm } from "react-hook-form";
+import FieldArray from "./fieldArray";
+import ReactDOM from "react-dom";
 
-  console.log(watch("example")); // watch input value by passing the name of it
+import "./styles.css";
 
+
+function Form({defaultValues}) {
+  const {
+    control,
+    register,
+    handleSubmit,
+    getValues,
+    errors,
+    reset,
+    setValue
+  } = useForm({
+    defaultValues
+  });
+  const onSubmit = (data) => console.log("data", data);
 
   return (
-    <div>
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* register your input into the hook by invoking the "register" function */}
-      <input defaultValue="test" {...register("example")} />
-      
-      {/* include validation with required or other standard HTML validation rules */}
-      <input {...register("exampleRequired", { required: true })} />
-      {/* errors will return when field validation fails  */}
-      {errors.exampleRequired && <span>This field is required</span>}
-      
+      <h1>Array of Array Fields</h1>
+      <p>
+        The following example demonstrate the ability of building nested array
+        fields.
+      </p>
+
+      <FieldArray
+        {...{ control, register, defaultValues, getValues, setValue, errors }}
+      />
+
+      <button type="button" onClick={() => reset(defaultValues)}>
+        Reset
+      </button>
+
       <input type="submit" />
-    </form>Form is here!   
-    </div>
-  )
+    </form>
+  );
 }
 
-export default Form
+export default Form;
