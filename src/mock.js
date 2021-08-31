@@ -40,22 +40,21 @@ export const texts2 = [
   curvature:  0 ,
   maxLength:  8 ,
   letterSpacing:  1 ,
+},
+{
+  text:  "" ,
+  fontSizeRatio:  10 ,
+  fontFamily:  "Ace Sans" ,
+  color:  "red" ,
+  fontWeight:  "700" ,
+  shiftHorizontal:  0 ,
+  fixedStart:  false ,
+  shiftVertical:  23 ,
+  rotateDeg:  0 ,
+  curvature:  0 ,
+  maxLength:  8 ,
+  letterSpacing:  1 ,
 }
-/*  {
-  text:"Whild night",
-  fontSizeRatio: 12,
-  fontFamily: 'Freescript',
-  color: '#E3B000',
-  fontWeight: '700',
-  shiftHorizontal: 40,
-  fixedStart: true,
-  shiftVertical: 0,
-  rotateDeg: -90,
-  curvature: 20,
-  maxLength: 8,
-  letterSpacing: 10
-
- } */
 ]
 export const texts3 = [
  {

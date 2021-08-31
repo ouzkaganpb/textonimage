@@ -55,6 +55,54 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Ginger Biscuit';
+  src:url('../src/assets/fonts/GingerBiscuit/Ginger-Biscuit-Personal-Use.ttf.woff') format('woff'),
+      url('../src/assets/fonts/GingerBiscuit/Ginger-Biscuit-Personal-Use.ttf.svg') format('svg'),
+      url('../src/assets/fonts/GingerBiscuit/Ginger-Biscuit-Personal-Use.ttf.eot'),
+      url('../src/assets/fonts/GingerBiscuit/Ginger-Biscuit-Personal-Use.ttf.eot?#iefix') format('embedded-opentype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Merrycle';
+  src:url('../src/assets/fonts/Merrycle/Merrycle.woff') format('woff'),
+      url('../src/assets/fonts/Merrycle/Merrycle.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*Dierenprint/Verkikkerd*/
+@font-face {
+  font-family: 'Merrycle';
+  src:url('./assets/fonts/Merrycle/Merrycle.woff') format('woff'),
+      url('./assets/fonts/Merrycle/Merrycle.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+/*Steden/Keulen*/
+@font-face {
+  font-family: 'SybarisOpti';
+  src:url('./assets/fonts/SybarisOpti/SybarisOpti.ttf.woff') format('woff'),
+      url('./assets/fonts/SybarisOpti/SybarisOpti.ttf.svg#SybarisOpti') format('svg'),
+      url('./assets/fonts/SybarisOpti/SybarisOpti.ttf.eot'),
+      url('./assets/fonts/SybarisOpti/SybarisOpti.ttf.eot?#iefix') format('embedded-opentype'); 
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*Steden/Kinderdijk*/
+@font-face {
+  font-family: 'DM-Sans-Regular';
+  src:url('./assets/fonts/DMSans/DM-Sans-Regular.ttf.woff') format('woff'),
+      url('./assets/fonts/DMSans/DM-Sans-Regular.ttf.svg#DM-Sans-Regular') format('svg'),
+      url('./assets/fonts/DMSans/DM-Sans-Regular.ttf.eot'),
+      url('./assets/fonts/DMSans/DM-Sans-Regular.ttf.eot?#iefix') format('embedded-opentype'); 
+  font-weight: normal;
+  font-style: normal;
+}
 
 
 .shirt-configurator{
@@ -75,4 +123,7 @@ canvas{
 
 input[type=range] {
   width: 100%; /* Specific width is required for Firefox. */
+}
+pre{
+  white-space: break-spaces;
 }
