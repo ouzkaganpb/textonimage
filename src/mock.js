@@ -26,36 +26,8 @@ export const texts = [
   distanceFromLeftPercentage:50
  },
 ]
-export const texts2 = [
- {
-  text:  "ABCDEFGHGJ" ,
-  fontSizeRatio:  10 ,
-  fontFamily:  "Ace Sans" ,
-  color:  "red" ,
-  fontWeight:  "700" ,
-  shiftHorizontal:  0 ,
-  fixedStart:  false ,
-  shiftVertical:  23 ,
-  rotateDeg:  0 ,
-  curvature:  0 ,
-  maxLength:  8 ,
-  letterSpacing:  1 ,
-},
-{
-  text:  "" ,
-  fontSizeRatio:  10 ,
-  fontFamily:  "Ace Sans" ,
-  color:  "red" ,
-  fontWeight:  "700" ,
-  shiftHorizontal:  0 ,
-  fixedStart:  false ,
-  shiftVertical:  23 ,
-  rotateDeg:  0 ,
-  curvature:  0 ,
-  maxLength:  8 ,
-  letterSpacing:  1 ,
-}
-]
+export const texts2 =
+[{"text":"10","fontSizeRatio":20,"fontFamily":"sans-serif","color":"#fff","fontWeight":500,"shiftHorizontal":8,"fixedStart":true,"shiftVertical":-4,"rotateDeg":0,"curvature":0,"maxLength":23,"letterSpacing":1},{"text":"ACHTEERNAAM","fontSizeRatio":6,"fontFamily":"sans-serif","color":"#fff","fontWeight":"700","shiftHorizontal":-5,"fixedStart":true,"shiftVertical":-20,"rotateDeg":0,"curvature":0,"maxLength":9,"letterSpacing":1}]
 export const texts3 = [
  {
   identifier:"sheetname",

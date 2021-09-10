@@ -237,7 +237,7 @@ function App() {
           <div className="column">
         <div className="shirt-configurator">
           
-          <CanvasWithText texts={[{...textsOnImage}/* ,{...textsOnImage2} */]} imageSource={activeImage || imagesource}/>
+          <CanvasWithText texts={[{...textsOnImage},{...textsOnImage2}]} imageSource={activeImage || imagesource}/>
           <input accept="image/*" type='file' id="imgInp" onChange={(e)=>uploadImage(e)}  />
         </div>
         </div>
