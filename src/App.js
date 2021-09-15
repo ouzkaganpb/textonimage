@@ -1,55 +1,50 @@
-import './App.css';
-import {useState, useEffect,useCallback, createRef} from 'react'
-import { texts2 } from './mock'
-import CanvasWithText from './components/CanvasWithText/CanvasWithText';
-import imagesource from './assets/Best Butty_75.png' 
-// import imagesource from './assets/Droompauw_75.png' 
+import "./App.css";
+import { useState, useEffect, useCallback, createRef } from "react";
+import { texts2 } from "./mock";
+import CanvasWithText from "./components/CanvasWithText/CanvasWithText";
+import imagesource from "./assets/Best Butty_75.png";
+// import imagesource from './assets/Droompauw_75.png'
 import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from "styled-components";
 
-let renderCount = 0
-function Test({getData, avaliableData}) {
-  console.log(avaliableData)
-  const [state, setState] = useState(0)
-  const { register, control,getValues, handleSubmit, reset, watch, setValue } = useForm({
-    defaultValues: {
-      test: [
-        ...avaliableData
-      ]
-    }
-  });
+let renderCount = 0;
+function Test({ getData, avaliableData }) {
+  console.log(avaliableData);
+  const [state, setState] = useState(0);
+  const { register, control, getValues, handleSubmit, reset, watch, setValue } =
+    useForm({
+      defaultValues: {
+        test: [...avaliableData],
+      },
+    });
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
     {
       control,
-      name: "test"
+      name: "test",
     }
   );
   // const watcher = watch()
-    useEffect(() => {
-      let timer;
-      const subscription = watch((value, { name, type }) => {
-       timer = setTimeout(() => {
-          getData(getValues())
-        }, 200);
-      });
-      return () => {
-        subscription.unsubscribe()
-        clearTimeout(timer);
-      };
-    }, [watch]);
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      getData(getValues());
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [watch]);
 
-    useEffect(() => {
-      console.log('RUN!')
-      setValue('test',[...avaliableData])
-      return 
-    }, [avaliableData]);
+  useEffect(() => {
+    console.log("RUN!");
+    setValue("test", [...avaliableData]);
+    return;
+  }, [avaliableData]);
 
   const onSubmit = (data) => getData(data);
 
   // if you want to control your fields with watch
   /* const watchResult = watch("test");
   console.log(watchResult); */
-  renderCount++
+  renderCount++;
   // The following is useWatch example
   // console.log(useWatch({ name: "test", control }));
   return (
@@ -64,7 +59,9 @@ function Test({getData, avaliableData}) {
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.text`)}
               />
-              <label htmlFor={`test.${index}.fontSizeRatio`}>fontSizeRatio</label>
+              <label htmlFor={`test.${index}.fontSizeRatio`}>
+                fontSizeRatio
+              </label>
               <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.fontSizeRatio`)}
@@ -86,32 +83,56 @@ function Test({getData, avaliableData}) {
                 {...register(`test.${index}.fontWeight`)}
               /> */}
 
-          <label htmlFor={`test.${index}.fontWeight`}>Choose a flavor:</label>
-          <input defaultValue={`${item.text}`}  {...register(`test.${index}.fontWeight`)}/>
+              <label htmlFor={`test.${index}.fontWeight`}>
+                Choose a flavor:
+              </label>
+              <input
+                defaultValue={`${item.text}`}
+                {...register(`test.${index}.fontWeight`)}
+              />
 
-            <datalist id={`test.${index}.fontWeight`}>
+              <datalist id={`test.${index}.fontWeight`}>
                 <option value="400" />
                 <option value="500" />
                 <option value="600" />
                 <option value="700" />
                 <option value="800" />
-            </datalist>
+              </datalist>
 
-
-              <label htmlFor={`test.${index}.shiftHorizontal`}>shiftHorizontal</label>
+              <label htmlFor={`test.${index}.shiftHorizontal`}>
+                shiftHorizontal
+              </label>
               <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.shiftHorizontal`)}
               />
-            <input type="range" min="-50" max="50" name="shiftHorizontal" defaultValue={`${item.text}`} {...register(`test.${index}.shiftHorizontal`)}/>
-            <label htmlFor={`test.${index}.shiftVertical`}>shiftVertical</label>
+              <input
+                type="range"
+                min="-50"
+                max="50"
+                name="shiftHorizontal"
+                defaultValue={`${item.text}`}
+                {...register(`test.${index}.shiftHorizontal`)}
+              />
+              <label htmlFor={`test.${index}.shiftVertical`}>
+                shiftVertical
+              </label>
               <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.shiftVertical`)}
               />
-              <input type="range" min="-50" max="50" name="shiftVertical" defaultValue={`${item.text}`} {...register(`test.${index}.shiftVertical`)}/>
-              <label htmlFor={`test.${index}.fixedStart`}>fixedStart: 0 (center), 1 (left), 2 (right)</label>
-               <input
+              <input
+                type="range"
+                min="-50"
+                max="50"
+                name="shiftVertical"
+                defaultValue={`${item.text}`}
+                {...register(`test.${index}.shiftVertical`)}
+              />
+              <label htmlFor={`test.${index}.fixedStart`}>
+                fixedStart: 0 (center), 1 (left), 2 (right)
+              </label>
+              <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.fixedStart`)}
               />
@@ -120,22 +141,40 @@ function Test({getData, avaliableData}) {
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.rotateDeg`)}
               />
-              <input type="range" min="-50" max="50" name="rotateDeg" defaultValue={`${item.text}`} {...register(`test.${index}.rotateDeg`)}/>
+              <input
+                type="range"
+                min="-50"
+                max="50"
+                name="rotateDeg"
+                defaultValue={`${item.text}`}
+                {...register(`test.${index}.rotateDeg`)}
+              />
               <label htmlFor={`test.${index}.curvature`}>curvature</label>
-               <input
+              <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.curvature`)}
               />
-              <div>Curvature<input type="range" min="-360" max="360" defaultValue={`${item.text}`} {...register(`test.${index}.curvature`)}/></div>
+              <div>
+                Curvature
+                <input
+                  type="range"
+                  min="-360"
+                  max="360"
+                  defaultValue={`${item.text}`}
+                  {...register(`test.${index}.curvature`)}
+                />
+              </div>
 
               <label htmlFor={`test.${index}.maxLength`}>maxLength</label>
-               <input
+              <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.maxLength`)}
                 type="number"
               />
-              <label htmlFor={`test.${index}.letterSpacing`}>letterSpacing</label>
-               <input
+              <label htmlFor={`test.${index}.letterSpacing`}>
+                letterSpacing
+              </label>
+              <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.letterSpacing`)}
               />
@@ -150,23 +189,20 @@ function Test({getData, avaliableData}) {
         <button
           type="button"
           onClick={() => {
-            append(
-              {
-
-                text:  "BEST BUTTY" ,
-                fontSizeRatio:  22 ,
-                fontFamily:  "Rounded Mplus" ,
-                color:  "#030202" ,
-                fontWeight:  "700" ,
-                shiftHorizontal:  0 ,
-                fixedStart:  0 ,
-                shiftVertical:  0 ,
-                rotateDeg:  0 ,
-                curvature:  0 ,
-                maxLength:  8 ,
-                letterSpacing:  10 ,
-             }
-            );
+            append({
+              text: "BEST BUTTY",
+              fontSizeRatio: 22,
+              fontFamily: "Rounded Mplus",
+              color: "#030202",
+              fontWeight: "700",
+              shiftHorizontal: 0,
+              fixedStart: 0,
+              shiftVertical: 0,
+              rotateDeg: 0,
+              curvature: 0,
+              maxLength: 8,
+              letterSpacing: 10,
+            });
           }}
         >
           append
@@ -179,90 +215,103 @@ function Test({getData, avaliableData}) {
 }
 
 function App() {
-  const [activeImage, setActiveImage] = useState(null)
-  const [formValues, setFormValues] = useState([])
-  const [avaliableData,setAvaliableData] = useState([{
+  const [activeImage, setActiveImage] = useState(null);
+  const [formValues, setFormValues] = useState([]);
+  const [avaliableData, setAvaliableData] = useState([
+    {
+      text: "BEST BUTTY",
+      fontSizeRatio: 22,
+      fontFamily: "Rounded Mplus",
+      color: "#030202",
+      fontWeight: "700",
+      shiftHorizontal: 0,
+      fixedStart: true,
+      shiftVertical: 0,
+      rotateDeg: 0,
+      curvature: 0,
+      maxLength: 8,
+      letterSpacing: 10,
+    },
+  ]);
+  const [dynamicFont, setDynamicFont] = useState({ fontName: "", fontUrl: "" });
 
-    text:  "BEST BUTTY" ,
-    fontSizeRatio:  22 ,
-    fontFamily:  "Rounded Mplus" ,
-    color:  "#030202" ,
-    fontWeight:  "700" ,
-    shiftHorizontal:  0 ,
-    fixedStart:  true ,
-    shiftVertical:  0 ,
-    rotateDeg:  0 ,
-    curvature:  0 ,
-    maxLength:  8 ,
-    letterSpacing:  10 ,
- }])
- const [dynamicFont, setDynamicFont] = useState({fontName:'',fontUrl:''})
-
-const GlobalStyle =createGlobalStyle`
+  const GlobalStyle = createGlobalStyle`
   body{
-    font-family: ${props => props.font.fontName};;
+    font-family: ${(props) => props.font.fontName};;
   }
   @font-face {
-      font-family:${props => props.font.fontName};
-      src: ${props => `url(${props.font.fontURL}) format('woff')`};
+      font-family:${(props) => props.font.fontName};
+      src: ${(props) => `url(${props.font.fontURL}) format('woff')`};
       font-weight: 300;
       font-style: normal;
   }
 `;
   const uploadImage = (e) => {
-    if(e.target.files?.[0] !== undefined ){
-    setActiveImage(URL.createObjectURL(e.target.files[0]))
-  
+    if (e.target.files?.[0] !== undefined) {
+      setActiveImage(URL.createObjectURL(e.target.files[0]));
     }
-    
-}
-const uploadFont = (e) => {
-  if(e.target.files?.[0] !== undefined ){
-    setDynamicFont({...{fontName: e.target.files[0].name.split('.')[0], fontUrl:URL.createObjectURL(e.target.files[0])}})
-    console.log(dynamicFont)
-    console.log(GlobalStyle)
-
-
-  }
-}
-  const getDataFromForm = (data) =>{
+  };
+  const uploadFont = (e) => {
+    if (e.target.files?.[0] !== undefined) {
+      setDynamicFont({
+        ...{
+          fontName: e.target.files[0].name.split(".")[0],
+          fontUrl: URL.createObjectURL(e.target.files[0]),
+        },
+      });
+      console.log(dynamicFont);
+      console.log(GlobalStyle);
+    }
+  };
+  const getDataFromForm = (data) => {
     setFormValues(data);
-
-  }
+  };
 
   const handleTextArea = (e) => {
     try {
-      setAvaliableData(JSON.parse(e.target.value))
+      setAvaliableData(JSON.parse(e.target.value));
     } catch (error) {
-      
-      alert("please add data with correct format")
+      alert("please add data with correct format");
     }
-  }
+  };
   return (
     <div className="App">
       <GlobalStyle font={dynamicFont} />
-      <header className="App-header">
-      </header>
-      
-        <div className="row">
-        
-          <div className="column">
-            <Test getData={d => {getDataFromForm(d.test)}} avaliableData={avaliableData} />
-           </div>
-          <div className="column">
-        <div className="canvas-container">
-         <div className="canvas-entity">
-         <div className="shirt-configurator">
-          <CanvasWithText texts={[...formValues]} imageSource={activeImage || imagesource}/>
-        </div>
-         <div>Change image: <input accept="image/*" type='file' id="imgInp" onChange={(e)=>uploadImage(e)}  /></div>
-          <div>Add new Font: <input accept="*" type='file' id="imgInp" onChange={(e)=>uploadFont(e)}  /></div>
-         </div>
+      <header className="App-header"></header>
 
+      <div className="row">
+        <div className="column">
+          <Test
+            getData={(d) => {
+              getDataFromForm(d.test);
+            }}
+            avaliableData={avaliableData}
+          />
         </div>
+        <div className="column">
+          <div className="canvas-container">
+            <div className="canvas-entity">
+              <div className="shirt-configurator">
+                <CanvasWithText
+                  texts={[...formValues]}
+                  imageSource={activeImage || imagesource}
+                />
+              </div>
+              <div>
+                Change image:{" "}
+                <input
+                  accept="image/*"
+                  type="file"
+                  id="imgInp"
+                  onChange={(e) => uploadImage(e)}
+                />
+              </div>
+              {/* <div>Add new Font: <input accept="*" type='file' id="imgInp" onChange={(e)=>uploadFont(e)}  /></div> */}
+            </div>
+          </div>
         </div>
-          <div className="column" style={{maxWidth: '32%'}}>
-           {/*  <pre>
+        <div className="column" style={{ maxWidth: "32%" }}>
+          {/*  <pre>
             <span>{"###["}</span>
 
             <span>{"{"}</span>
@@ -279,29 +328,27 @@ const uploadFont = (e) => {
           <span>{"]"}</span>
 
             </pre> */}
-            <label htmlFor="textValue">Paste existing data here </label>
-            
-            <textarea
-              name="textValue"
-              onChange={handleTextArea}
-              rows={5}
-              cols={5}
-            />
-            {/* <pre>
+          <label htmlFor="textValue">Paste existing data here </label>
+
+          <textarea
+            name="textValue"
+            onChange={handleTextArea}
+            rows={5}
+            cols={5}
+          />
+          {/* <pre>
               {JSON.stringify(formValues)}
             </pre> */}
-            <label htmlFor="textValue">RESULT: </label>
+          <label htmlFor="textValue">RESULT: </label>
 
-            <textarea
+          <textarea
             value={JSON.stringify(formValues)}
             rows={10}
-            style={{height:'500px'}}
+            style={{ height: "500px" }}
             disabled
           />
-   
-          </div>
         </div>
-        
+      </div>
     </div>
   );
 }
