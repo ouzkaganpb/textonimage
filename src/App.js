@@ -9,7 +9,6 @@ import { createGlobalStyle } from "styled-components";
 
 let renderCount = 0;
 function Test({ getData, avaliableData }) {
-  console.log(avaliableData);
   const [state, setState] = useState(0);
   const { register, control, getValues, handleSubmit, reset, watch, setValue } =
     useForm({
@@ -34,7 +33,6 @@ function Test({ getData, avaliableData }) {
   }, [watch]);
 
   useEffect(() => {
-    console.log("RUN!");
     setValue("test", [...avaliableData]);
     return;
   }, [avaliableData]);
@@ -189,27 +187,14 @@ function Test({ getData, avaliableData }) {
         <button
           type="button"
           onClick={() => {
-            append({
-              text: "BEST BUTTY",
-              fontSizeRatio: 22,
-              fontFamily: "Rounded Mplus",
-              color: "#030202",
-              fontWeight: "700",
-              shiftHorizontal: 0,
-              fixedStart: 0,
-              shiftVertical: 0,
-              rotateDeg: 0,
-              curvature: 0,
-              maxLength: 8,
-              letterSpacing: 10,
-            });
+            append({"text":"Text Here","fontSizeRatio":"8","fontFamily":"Rounded Mplus","color":"#fff","fontWeight":"700","shiftHorizontal":"0","fixedStart":"0","shiftVertical":0,"rotateDeg":"0","curvature":0,"maxLength":8,"letterSpacing":"0"});
           }}
         >
           append
         </button>
       </section>
 
-      <input type="submit" />
+      <input type="submit"/>
     </form>
   );
 }
@@ -218,20 +203,7 @@ function App() {
   const [activeImage, setActiveImage] = useState(null);
   const [formValues, setFormValues] = useState([]);
   const [avaliableData, setAvaliableData] = useState([
-    {
-      text: "BEST BUTTY",
-      fontSizeRatio: 22,
-      fontFamily: "Rounded Mplus",
-      color: "#030202",
-      fontWeight: "700",
-      shiftHorizontal: 0,
-      fixedStart: true,
-      shiftVertical: 0,
-      rotateDeg: 0,
-      curvature: 0,
-      maxLength: 8,
-      letterSpacing: 10,
-    },
+    {"text":"Text Here","fontSizeRatio":"8","fontFamily":"Rounded Mplus","color":"#fff","fontWeight":"700","shiftHorizontal":"0","fixedStart":"0","shiftVertical":0,"rotateDeg":"0","curvature":0,"maxLength":8,"letterSpacing":"0"}
   ]);
   const [dynamicFont, setDynamicFont] = useState({ fontName: "", fontUrl: "" });
 
@@ -328,25 +300,33 @@ function App() {
           <span>{"]"}</span>
 
             </pre> */}
-          <label htmlFor="textValue">Paste existing data here </label>
+          <div className="column">
+            <div className="canvas-container">
+              <div className="canvas-entity">
+              <label htmlFor="textValue">Paste existing data here </label>
 
-          <textarea
-            name="textValue"
-            onChange={handleTextArea}
-            rows={5}
-            cols={5}
-          />
-          {/* <pre>
-              {JSON.stringify(formValues)}
-            </pre> */}
-          <label htmlFor="textValue">RESULT: </label>
+<textarea
+  name="textValue"
+  onChange={handleTextArea}
+  rows={5}
+  cols={5}
+/>
+{/* <pre>
+    {JSON.stringify(formValues)}
+  </pre> */}
+<label htmlFor="textValue">RESULT: </label>
 
-          <textarea
-            value={JSON.stringify(formValues)}
-            rows={10}
-            style={{ height: "500px" }}
-            disabled
-          />
+<textarea
+  value={JSON.stringify(formValues)}
+  rows={10}
+  style={{ height: "500px" }}
+  disabled
+/>
+
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
