@@ -1,14 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Palette+Mosaic&display=swap');
 
 @font-face {
-  font-family: 'Blue Waffle';
-  src: url('../src/assets/fonts/BlueWaffle.woff2') format('woff2'),
-      url('../src/assets/fonts/BlueWaffle.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: 'Rounded Mplus';
   src: url('../src/assets/fonts/Rounded-Mplus-1c-Light.ttf.woff') format('woff');
   font-weight: normal;
@@ -110,10 +102,46 @@
   font-weight: normal;
   font-style: normal;
 }
+/*Almere/ExoSoft*/
+@font-face {
+  font-family: 'ExoSoft';
+  src: local('ExoSoft Regular'), local('Exo-Soft-Regular'),
+      url('./assets/fonts/ExoSoft/ExoSoft-Regular.woff2') format('woff2'),
+      url('./assets/fonts/ExoSoft/ExoSoft-Regular.woff') format('woff'),
+      url('./assets/fonts/ExoSoft/ExoSoft-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
 
+@font-face {
+    font-family: 'ExoSoft';
+    src: local('ExoSoft Semi Bold'), local('Exo-Soft-Semi-Bold'),
+        url('./assets/fonts/ExoSoft/ExoSoft-SemiBold.woff2') format('woff2'),
+        url('./assets/fonts/ExoSoft/ExoSoft-SemiBold.woff') format('woff'),
+        url('./assets/fonts/ExoSoft/ExoSoft-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'ExoSoft';
+    src: local('ExoSoft Thin'), local('Exo-Soft-Thin'),
+        url('./assets/fonts/ExoSoft/ExoSoft-Thin.woff2') format('woff2'),
+        url('./assets/fonts/ExoSoft/ExoSoft-Thin.woff') format('woff'),
+        url('./assets/fonts/ExoSoft/ExoSoft-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+  }
 .shirt-configurator{
   max-width: 500px;
   position:relative;
+}
+.canvas-container{
+  position:relative;
+}
+.canvas-entity{
+  position:fixed;
+  width: 400px;
 }
 .shirt-configurator img{
     position: absolute;

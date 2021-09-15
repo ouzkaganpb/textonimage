@@ -1,33 +1,20 @@
 import './App.css';
-import {useState, useEffect, createRef} from 'react'
+import {useState, useEffect,useCallback, createRef} from 'react'
 import { texts2 } from './mock'
 import CanvasWithText from './components/CanvasWithText/CanvasWithText';
 import imagesource from './assets/Best Butty_75.png' 
 // import imagesource from './assets/Droompauw_75.png' 
 import { useForm, useFieldArray, Controller, useWatch } from "react-hook-form";
+import { createGlobalStyle } from 'styled-components'
 
-
-let renderCount = 0;
-
-function Test() {
-  const { register, control, handleSubmit, reset, watch } = useForm({
+let renderCount = 0
+function Test({getData, avaliableData}) {
+  console.log(avaliableData)
+  const [state, setState] = useState(0)
+  const { register, control,getValues, handleSubmit, reset, watch, setValue } = useForm({
     defaultValues: {
       test: [
-        {
-
-          text:  "BEST BUTTY" ,
-          fontSizeRatio:  22 ,
-          fontFamily:  "Rounded Mplus" ,
-          color:  "#030202" ,
-          fontWeight:  "700" ,
-          shiftHorizontal:  0 ,
-          fixedStart:  true ,
-          shiftVertical:  0 ,
-          rotateDeg:  0 ,
-          curvature:  0 ,
-          maxLength:  8 ,
-          letterSpacing:  10 ,
-       }
+        ...avaliableData
       ]
     }
   });
@@ -37,46 +24,120 @@ function Test() {
       name: "test"
     }
   );
+  // const watcher = watch()
+    useEffect(() => {
+      let timer;
+      const subscription = watch((value, { name, type }) => {
+       timer = setTimeout(() => {
+          getData(getValues())
+        }, 200);
+      });
+      return () => {
+        subscription.unsubscribe()
+        clearTimeout(timer);
+      };
+    }, [watch]);
 
-  const onSubmit = (data) => console.log("data", data);
+    useEffect(() => {
+      console.log('RUN!')
+      setValue('test',[...avaliableData])
+      return 
+    }, [avaliableData]);
+
+  const onSubmit = (data) => getData(data);
 
   // if you want to control your fields with watch
-  // const watchResult = watch("test");
-  // console.log(watchResult);
-
+  /* const watchResult = watch("test");
+  console.log(watchResult); */
+  renderCount++
   // The following is useWatch example
   // console.log(useWatch({ name: "test", control }));
-
-  renderCount++;
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Field Array </h1>
-      <p>The following demo allow you to delete, append, prepend items</p>
-      <span className="counter">Render Count: {renderCount}</span>
+    <form onSubmit={handleSubmit(onSubmit)} key={state}>
+      {renderCount}
       <ul>
         {fields.map((item, index) => {
           return (
             <li key={item.id}>
+              <label htmlFor={`test.${index}.text`}>Text</label>
               <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.text`)}
               />
+              <label htmlFor={`test.${index}.fontSizeRatio`}>fontSizeRatio</label>
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.fontSizeRatio`)}
+                type="number"
+              />
+              <label htmlFor={`test.${index}.fontFamily`}>fontFamily</label>
               <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.fontFamily`)}
               />
+              <label htmlFor={`test.${index}.color`}>color</label>
               <input
                 defaultValue={`${item.text}`} // make sure to set up defaultValue
                 {...register(`test.${index}.color`)}
               />
+              {/* <label htmlFor={`test.${index}.fontWeight`}>fontWeight</label>
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.fontWeight`)}
+              /> */}
+
+          <label htmlFor={`test.${index}.fontWeight`}>Choose a flavor:</label>
+          <input defaultValue={`${item.text}`}  {...register(`test.${index}.fontWeight`)}/>
+
+            <datalist id={`test.${index}.fontWeight`}>
+                <option value="400" />
+                <option value="500" />
+                <option value="600" />
+                <option value="700" />
+                <option value="800" />
+            </datalist>
 
 
-              <Controller
-                render={({ field }) => <input {...field} />}
-                name={`test.${index}.lastName`}
-                control={control}
-                defaultValue={item.lastName} // make sure to set up defaultValue
+              <label htmlFor={`test.${index}.shiftHorizontal`}>shiftHorizontal</label>
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.shiftHorizontal`)}
+              />
+            <input type="range" min="-50" max="50" name="shiftHorizontal" defaultValue={`${item.text}`} {...register(`test.${index}.shiftHorizontal`)}/>
+            <label htmlFor={`test.${index}.shiftVertical`}>shiftVertical</label>
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.shiftVertical`)}
+              />
+              <input type="range" min="-50" max="50" name="shiftVertical" defaultValue={`${item.text}`} {...register(`test.${index}.shiftVertical`)}/>
+              <label htmlFor={`test.${index}.fixedStart`}>fixedStart: 0 (center), 1 (left), 2 (right)</label>
+               <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.fixedStart`)}
+              />
+              <label htmlFor={`test.${index}.rotateDeg`}>rotateDeg</label>
+              <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.rotateDeg`)}
+              />
+              <input type="range" min="-50" max="50" name="rotateDeg" defaultValue={`${item.text}`} {...register(`test.${index}.rotateDeg`)}/>
+              <label htmlFor={`test.${index}.curvature`}>curvature</label>
+               <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.curvature`)}
+              />
+              <div>Curvature<input type="range" min="-360" max="360" defaultValue={`${item.text}`} {...register(`test.${index}.curvature`)}/></div>
+
+              <label htmlFor={`test.${index}.maxLength`}>maxLength</label>
+               <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.maxLength`)}
+                type="number"
+              />
+              <label htmlFor={`test.${index}.letterSpacing`}>letterSpacing</label>
+               <input
+                defaultValue={`${item.text}`} // make sure to set up defaultValue
+                {...register(`test.${index}.letterSpacing`)}
               />
               <button type="button" onClick={() => remove(index)}>
                 Delete
@@ -98,7 +159,7 @@ function Test() {
                 color:  "#030202" ,
                 fontWeight:  "700" ,
                 shiftHorizontal:  0 ,
-                fixedStart:  true ,
+                fixedStart:  0 ,
                 shiftVertical:  0 ,
                 rotateDeg:  0 ,
                 curvature:  0 ,
@@ -110,32 +171,6 @@ function Test() {
         >
           append
         </button>
-        <button
-          type="button"
-          onClick={() =>
-            prepend({
-              firstName: "prependFirstName",
-              lastName: "prependLastName"
-            })
-          }
-        >
-          prepend
-        </button>
-        
-        <button type="button" onClick={() => swap(1, 2)}>
-          swap
-        </button>
-
-        <button
-          type="button"
-          onClick={() =>
-            reset({
-              test: [{ firstName: "Bill", lastName: "Luo" }]
-            })
-          }
-        >
-          reset
-        </button>
       </section>
 
       <input type="submit" />
@@ -143,106 +178,91 @@ function Test() {
   );
 }
 
-function Text2Code({texts}){
-  return ( 
-    <>
-    <span>{",{"}</span>
-          
-      {
-        Object.keys(texts).map((item,index)=>{
-        return (<>
-          "{item}":{`${typeof texts[item] == 'string' ? '"'+texts[item]+'"' : texts[item]}${index !== Object.keys(texts).length - 1 ? ',' : ''}` }
-        </>)
-      })
-    }
-    <span>{"}"}</span>
-    </>
-  )
-}
 function App() {
   const [activeImage, setActiveImage] = useState(null)
-  
-  const [textsOnImage, setTextsOnImage] = useState({...texts2[0]})
-  const [textsOnImage2, setTextsOnImage2] = useState({...texts2[1]})
+  const [formValues, setFormValues] = useState([])
+  const [avaliableData,setAvaliableData] = useState([{
 
-  const handleChange = (event) => {
-    const value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
-    setTextsOnImage({
-      ...textsOnImage,
-      [event.target.name]: event.target.type === 'number' || event.target.type === 'range' ? parseInt(value) : value
-    });
+    text:  "BEST BUTTY" ,
+    fontSizeRatio:  22 ,
+    fontFamily:  "Rounded Mplus" ,
+    color:  "#030202" ,
+    fontWeight:  "700" ,
+    shiftHorizontal:  0 ,
+    fixedStart:  true ,
+    shiftVertical:  0 ,
+    rotateDeg:  0 ,
+    curvature:  0 ,
+    maxLength:  8 ,
+    letterSpacing:  10 ,
+ }])
+ const [dynamicFont, setDynamicFont] = useState({fontName:'',fontUrl:''})
+
+const GlobalStyle =createGlobalStyle`
+  body{
+    font-family: ${props => props.font.fontName};;
   }
-  const handleChange2 = (event) => {
-    const value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
-    setTextsOnImage2({
-      ...textsOnImage2,
-      [event.target.name]: event.target.type === 'number' || event.target.type === 'range' ? parseInt(value) : value
-    });
+  @font-face {
+      font-family:${props => props.font.fontName};
+      src: ${props => `url(${props.font.fontURL}) format('woff')`};
+      font-weight: 300;
+      font-style: normal;
   }
+`;
   const uploadImage = (e) => {
+    if(e.target.files?.[0] !== undefined ){
     setActiveImage(URL.createObjectURL(e.target.files[0]))
+  
+    }
+    
+}
+const uploadFont = (e) => {
+  if(e.target.files?.[0] !== undefined ){
+    setDynamicFont({...{fontName: e.target.files[0].name.split('.')[0], fontUrl:URL.createObjectURL(e.target.files[0])}})
+    console.log(dynamicFont)
+    console.log(GlobalStyle)
+
+
+  }
+}
+  const getDataFromForm = (data) =>{
+    setFormValues(data);
+
+  }
+
+  const handleTextArea = (e) => {
+    try {
+      setAvaliableData(JSON.parse(e.target.value))
+    } catch (error) {
+      
+      alert("please add data with correct format")
+    }
   }
   return (
     <div className="App">
+      <GlobalStyle font={dynamicFont} />
       <header className="App-header">
       </header>
       
         <div className="row">
         
           <div className="column">
-            {/* <Test /> */}
-            <form>
-              <h4>First Text</h4>
-              <div>First text: <input type="text" name="text" value={textsOnImage.text} onChange={(e)=>handleChange(e)}/></div>
-              <div>Shift from top <input type="range" min="-50" max="50" name="shiftVertical" value={textsOnImage.shiftVertical} onChange={(e)=>handleChange(e)}/></div>
-              <div>Shift from left <input type="range" min="-50" max="50" name="shiftHorizontal" value={textsOnImage.shiftHorizontal} onChange={(e)=>handleChange(e)}/></div>
-              <div>Font Family<input type="text" value={textsOnImage.fontFamily} name="fontFamily" onChange={(e)=>handleChange(e)}/></div>
-              <div>Color<input type="text" value={textsOnImage.color} name="color" onChange={(e)=>handleChange(e)}/></div>
-              <div>Font Size %<input type="number" value={textsOnImage.fontSizeRatio} name="fontSizeRatio" onChange={(e)=>handleChange(e)}/></div>
-              <div>Font Weight %<input type="number" value={textsOnImage.fontWeight} name="fontWeight" onChange={(e)=>handleChange(e)}/></div>
-              <label for="fixedStart">fixed at?</label>
-
-              <select name="fixedStart" id="fixedStart" onChange={(e)=>handleChange(e)} >
-                  <option value="">--Please choose an option--</option>
-                  <option value="0">center</option>
-                  <option value="1">right</option>
-                  <option value="2">left</option>
-              </select>
-                <datalist id="data">
-                  <option value="center" />
-                  <option value="right" />
-                  <option value="left" />
-                </datalist>
-              <div>Rotation<input type="range" min="-360" max="360" value={textsOnImage.rotateDeg} name="rotateDeg" onChange={(e)=>handleChange(e)}/></div>
-              <div>Curvature<input type="range" min="-360" max="360" value={textsOnImage.curvature} name="curvature" onChange={(e)=>handleChange(e)}/></div>
-              <div>Max Length<input type="number" value={textsOnImage.maxLength} name="maxLength" onChange={(e)=>handleChange(e)}/></div>
-              <div>Letter Spacing<input type="number" value={textsOnImage.letterSpacing} name="letterSpacing" onChange={(e)=>handleChange(e)}/></div>
-            </form>
-            <form>
-              <h4>Second Text</h4>
-              <div>Second text: <input type="text" name="text" value={textsOnImage2.text} onChange={(e)=>handleChange2(e)}/></div>
-              <div>Shift from top <input type="range" min="-50" max="50" name="shiftVertical" value={textsOnImage2.shiftVertical} onChange={(e)=>handleChange2(e)}/></div>
-              <div>Shift from left <input type="range" min="-50" max="50" name="shiftHorizontal" value={textsOnImage2.shiftHorizontal} onChange={(e)=>handleChange2(e)}/></div>
-              <div>Font Family<input type="text" value={textsOnImage2.fontFamily} name="fontFamily" onChange={(e)=>handleChange2(e)}/></div>
-              <div>Color<input type="text" value={textsOnImage2.color} name="color" onChange={(e)=>handleChange2(e)}/></div>
-              <div>Font Size %<input type="number" value={textsOnImage2.fontSizeRatio} name="fontSizeRatio" onChange={(e)=>handleChange2(e)}/></div>
-              <div>Font Weight %<input type="number" value={textsOnImage2.fontWeight} name="fontWeight" onChange={(e)=>handleChange2(e)}/></div>
-              <div>fixedStart<input type="checkbox" checked={textsOnImage2.fixedStart} name="fixedStart" onChange={(e)=>handleChange2(e)}/></div>
-              <div>Rotation<input type="range" min="-360" max="360" value={textsOnImage2.rotateDeg} name="rotateDeg" onChange={(e)=>handleChange2(e)}/></div>
-              <div>Curvature<input type="range" min="-360" max="360" value={textsOnImage2.curvature} name="curvature" onChange={(e)=>handleChange2(e)}/></div>
-              <div>Max Length<input type="number" value={textsOnImage2.maxLength} name="maxLength" onChange={(e)=>handleChange2(e)}/></div>
-              <div>Letter Spacing<input type="number" value={textsOnImage2.letterSpacing} name="letterSpacing" onChange={(e)=>handleChange2(e)}/></div>
-            </form>
-          </div>
+            <Test getData={d => {getDataFromForm(d.test)}} avaliableData={avaliableData} />
+           </div>
           <div className="column">
-        <div className="shirt-configurator">
-          
-          <CanvasWithText texts={[{...textsOnImage},{...textsOnImage2}]} imageSource={activeImage || imagesource}/>
-          <input accept="image/*" type='file' id="imgInp" onChange={(e)=>uploadImage(e)}  />
+        <div className="canvas-container">
+         <div className="canvas-entity">
+         <div className="shirt-configurator">
+          <CanvasWithText texts={[...formValues]} imageSource={activeImage || imagesource}/>
+        </div>
+         <div>Change image: <input accept="image/*" type='file' id="imgInp" onChange={(e)=>uploadImage(e)}  /></div>
+          <div>Add new Font: <input accept="*" type='file' id="imgInp" onChange={(e)=>uploadFont(e)}  /></div>
+         </div>
+
         </div>
         </div>
           <div className="column" style={{maxWidth: '32%'}}>
-            <pre>
+           {/*  <pre>
             <span>{"###["}</span>
 
             <span>{"{"}</span>
@@ -258,7 +278,27 @@ function App() {
           {textsOnImage2['text'] && <Text2Code texts={textsOnImage2} />}
           <span>{"]"}</span>
 
-            </pre>
+            </pre> */}
+            <label htmlFor="textValue">Paste existing data here </label>
+            
+            <textarea
+              name="textValue"
+              onChange={handleTextArea}
+              rows={5}
+              cols={5}
+            />
+            {/* <pre>
+              {JSON.stringify(formValues)}
+            </pre> */}
+            <label htmlFor="textValue">RESULT: </label>
+
+            <textarea
+            value={JSON.stringify(formValues)}
+            rows={10}
+            style={{height:'500px'}}
+            disabled
+          />
+   
           </div>
         </div>
         

@@ -26,9 +26,7 @@ export const texts = [
     distanceFromLeftPercentage: 50,
   },
 ];
-export const texts2 = [
-  {"text":"10","fontSizeRatio":30,"fontFamily":"oswald","color":"#fff","fontWeight":400,"shiftHorizontal":0,"fixedStart":"0","shiftVertical":-10,"rotateDeg":0,"curvature":0,"maxLength":23,"letterSpacing":1},{"text":"ACHTEERNAAM","fontSizeRatio":9,"fontFamily":"oswald","color":"#fff","fontWeight":"400","shiftHorizontal":0,"fixedStart":false,"shiftVertical":-24,"rotateDeg":0,"curvature":0,"maxLength":14,"letterSpacing":1} 
-];
+export const texts2 = [{"text":"10","fontSizeRatio":30,"fontFamily":"oswald","color":"#fff","fontWeight":400,"shiftHorizontal":0,"fixedStart":"0","shiftVertical":0,"rotateDeg":0,"curvature":0,"maxLength":3,"letterSpacing":1},{"text":"ACHTERNAAM","fontSizeRatio":9,"fontFamily":"oswald","color":"#fff","fontWeight":"400","shiftHorizontal":0,"fixedStart":false,"shiftVertical":-16,"rotateDeg":0,"curvature":0,"maxLength":13,"letterSpacing":1}]
 
 export const texts3 = [
   {

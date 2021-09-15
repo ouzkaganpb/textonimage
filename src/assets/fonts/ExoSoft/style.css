@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Exo Soft';
+    src: local('Exo Soft Regular'), local('Exo-Soft-Regular'),
+        url('ExoSoft-Regular.woff2') format('woff2'),
+        url('ExoSoft-Regular.woff') format('woff'),
+        url('ExoSoft-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }

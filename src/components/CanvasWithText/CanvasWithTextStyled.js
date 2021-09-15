@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ShirtConfigurator = styled.div`
     height: 100%;
     position: relative;
+    position:static;
     z-index: 2;
     img {
         position: absolute;
